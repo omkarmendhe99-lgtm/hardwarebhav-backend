@@ -17,11 +17,7 @@ const PORT = 5000;
 // MIDDLEWARE
 // ======================================
 
-app.use(cors({
-    origin: "https://hardwarebhav-frontend.onrender.com",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+app.use(cors());
 
 app.use(
     express.json()
