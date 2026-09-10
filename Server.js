@@ -681,11 +681,12 @@ app.put(
         try {
 
             const {
-                shopName,
-                ownerName,
-                address,
-                city
-            } = req.body;
+    shopName,
+    ownerName,
+    address,
+    city:city,
+    active: active 
+} = req.body;
 
 
             const shop =
