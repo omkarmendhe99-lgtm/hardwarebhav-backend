@@ -570,7 +570,12 @@ app.get(
         try {
 
             const shops =
-    await Shop.find({ active: true })
+    await Shop.find({
+        $or: [
+            { active: true },
+            { active: { $exists: false } }
+        ]
+    })
     .select("-password");
 
             res.json({
