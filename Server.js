@@ -570,8 +570,8 @@ app.get(
         try {
 
             const shops =
-                await Shop.find()
-                .select("-password");
+    await Shop.find({ active: true })
+    .select("-password");
 
             res.json({
 
