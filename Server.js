@@ -675,101 +675,86 @@ app.get(
 );
 
 
-// ======================================
+// ===============================
 // UPDATE SHOP
-// ======================================
+// ===============================
 
-app.put(
-    "/api/shops/:id",
-    async (req, res) => {
+app.put("/api/shops/:id", async (req, res) => {
 
-        try {
+    try {
 
-            const {
-    shopName,
-    ownerName,
-    address,
-    city:city,
-    active: active 
-} = req.body;
+        const {
+            shopName,
+            ownerName,
+            address,
+            city,
+            active
+        } = req.body;
 
+        const updateData = {
+            shopName,
+            ownerName,
+            address,
+            city
+        };
 
-            const shop =
-                await Shop.findByIdAndUpdate(
+        // Active status sirf tab update hoga
+        // jab true ya false bheja jayega
+        if (typeof active === "boolean") {
+            updateData.active = active;
+        }
 
-                    req.params.id,
-
-                    {
-                        shopName:
-                            shopName,
-
-                        ownerName:
-                            ownerName,
-
-                        address:
-                            address,
-
-                        city:
-                            city
-                    },
-
-                    {
-                        returnDocument: "after",
-
-                        runValidators: false
-                    }
-                );
-
-
-            if (!shop) {
-
-                return res.status(404).json({
-
-                    success: false,
-
-                    message:
-                        "Shop not found"
-
-                });
-
+        const shop = await Shop.findByIdAndUpdate(
+            req.params.id,
+            updateData,
+            {
+                new: true,
+                runValidators: true
             }
+        );
 
+        if (!shop) {
 
-            res.json({
-
-                success: true,
-
-                message:
-                    "Shop updated successfully",
-
-                shop: shop
-
-            });
-
-        }
-        catch (error) {
-
-            console.log(
-                "Update Shop Error:",
-                error.message
-            );
-
-            res.status(500).json({
-
+            return res.status(404).json({
                 success: false,
-
-                message:
-                    "Shop update failed",
-
-                error:
-                    error.message
-
+                message: "Shop not found"
             });
 
         }
+
+        res.json({
+
+            success: true,
+
+            message: "Shop updated successfully",
+
+            shop: shop
+
+        });
 
     }
-);
+    catch (error) {
+
+        console.log(
+            "Update Shop Error:",
+            error.message
+        );
+
+        res.status(500).json({
+
+            success: false,
+
+            message: "Shop update failed",
+
+            error: error.message
+
+        });
+
+    }
+
+});
+
+                
 
 
 // ======================================
