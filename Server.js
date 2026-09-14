@@ -263,6 +263,10 @@ const shopSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+                active: {
+            type: Boolean,
+            default: true
+        },
 
         mobile: {
             type: String,
