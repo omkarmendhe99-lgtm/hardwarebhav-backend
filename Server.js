@@ -615,7 +615,39 @@ app.get(
     }
 );
 
+// ======================================
+// GET ALL SHOPS - ADMIN
+// ======================================
 
+app.get("/api/admin/shops", async (req, res) => {
+
+    try {
+
+        const shops =
+            await Shop.find()
+                .select("-password");
+
+        res.json({
+            success: true,
+            shops: shops
+        });
+
+    } catch (error) {
+
+        console.log(
+            "Admin Get Shops Error:",
+            error.message
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Admin shops fetch failed",
+            error: error.message
+        });
+
+    }
+
+});
 // ======================================
 // GET SINGLE SHOP
 // ======================================
