@@ -726,12 +726,13 @@ app.put("/api/shops/:id", async (req, res) => {
     try {
 
         const {
-            shopName,
-            ownerName,
-            address,
-            city,
-            active
-        } = req.body;
+    shopName,
+    ownerName,
+    address,
+    city,
+    active,
+    approvalStatus
+} = req.body;
 
         const updateData = {
             shopName,
