@@ -267,6 +267,11 @@ const shopSchema = new mongoose.Schema(
             type: Boolean,
             default: true
         },
+        approvalStatus: {
+    type: String,
+    enum: ["pending", "approved"],
+    default: "approved"
+},
 
         mobile: {
             type: String,
