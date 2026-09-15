@@ -414,7 +414,9 @@ app.post(
                         city || "",
 
                     products:
-                        []
+                        [],
+                    approvalStatus:
+    "pending"
 
                 });
 
