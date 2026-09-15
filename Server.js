@@ -332,14 +332,13 @@ app.post(
         try {
 
             const {
-                shopName,
-                ownerName,
-                email,
-                mobile,
-                password,
-                address,
-                city
-            } = req.body;
+    shopName,
+    ownerName,
+    address,
+    city,
+    active,
+    approvalStatus
+} = req.body;
 
 
             if (
@@ -746,7 +745,13 @@ app.put("/api/shops/:id", async (req, res) => {
         if (typeof active === "boolean") {
             updateData.active = active;
         }
-
+        if (
+    approvalStatus === "pending" ||
+    approvalStatus === "approved"
+) {
+    updateData.approvalStatus =
+        approvalStatus;
+        }
         const shop = await Shop.findByIdAndUpdate(
             req.params.id,
             updateData,
