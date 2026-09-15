@@ -579,11 +579,21 @@ app.get(
 
         try {
 
-            const shops =
+        const shops =
     await Shop.find({
-        $or: [
-            { active: true },
-            { active: { $exists: false } }
+        $and: [
+            {
+                $or: [
+                    { active: true },
+                    { active: { $exists: false } }
+                ]
+            },
+            {
+                $or: [
+                    { approvalStatus: "approved" },
+                    { approvalStatus: { $exists: false } }
+                ]
+            }
         ]
     })
     .select("-password");
